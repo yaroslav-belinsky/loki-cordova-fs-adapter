@@ -1,4 +1,5 @@
-class LokiCordovaFSAdapterError extends Error {}
+class LokiCordovaFSAdapterError extends Error {
+}
 
 const TAG = "[LokiCordovaFSAdapter]";
 
@@ -14,14 +15,12 @@ class LokiCordovaFSAdapter {
                 fileEntry.createWriter(
                     (fileWriter) => {
                         fileWriter.onwriteend = () => {
-                            if (fileWriter.length === 0) {
-                                var blob = this._createBlob(dbstring, "text/plain");
-                                fileWriter.write(blob);
+                            if (fileWriter.length > 0) {
                                 callback();
                             }
                         };
-                        fileWriter.truncate(0);
-
+                        var blob = this._createBlob(dbstring, "text/plain");
+                        fileWriter.write(blob);
                     },
                     (err) => {
                         console.error(TAG, "error writing file", err);
@@ -64,12 +63,12 @@ class LokiCordovaFSAdapter {
             }
         );
     }
-    
+
     deleteDatabase(dbname, callback) {
         window.resolveLocalFileSystemURL(cordova.file.dataDirectory,
             (dir) => {
                 let fileName = this.options.prefix + "__" + dbname;
-                dir.getFile(fileName, {create: true}, 
+                dir.getFile(fileName, {create: true},
                     (fileEntry) => {
                         fileEntry.remove(
                             () => {
@@ -120,9 +119,9 @@ class LokiCordovaFSAdapter {
         }
         catch (err) {
             window.BlobBuilder = window.BlobBuilder ||
-                    window.WebKitBlobBuilder ||
-                    window.MozBlobBuilder ||
-                    window.MSBlobBuilder;
+                window.WebKitBlobBuilder ||
+                window.MozBlobBuilder ||
+                window.MSBlobBuilder;
 
             if (err.name === "TypeError" && window.BlobBuilder) {
                 var bb = new window.BlobBuilder();

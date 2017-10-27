@@ -1,6 +1,6 @@
 {
   "name": "loki-cordova-fs-adapter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "FileSystem adapter for LokiJS database persistence on Cordova.",
   "files": "bin/",
   "main": "bin/loki-cordova-fs-adapter.js",
@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/cosmith/loki-cordova-fs-adapter/issues"
   },
-  "homepage": "https://github.com/cosmith/loki-cordova-fs-adapter#readme"
+  "homepage": "https://github.com/cosmith/loki-cordova-fs-adapter#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1"
+  }
 }
